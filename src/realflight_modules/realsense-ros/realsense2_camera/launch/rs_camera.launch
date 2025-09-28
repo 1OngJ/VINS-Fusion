@@ -29,12 +29,13 @@
   <arg name="enable_infra1"       default="true"/>
   <arg name="enable_infra2"       default="true"/>
   <arg name="infra_rgb"           default="false"/>
+  <arg name="infra_align_to_depth" default="false"/>
 
   <arg name="color_width"         default="640"/>
   <arg name="color_height"        default="480"/>
   <arg name="enable_color"        default="true"/>
 
-  <arg name="fisheye_fps"         default="15"/>
+  <arg name="fisheye_fps"         default="6"/>
   <arg name="depth_fps"           default="15"/>
   <arg name="infra_fps"           default="15"/>
   <arg name="color_fps"           default="15"/>
@@ -50,7 +51,7 @@
   <arg name="ordered_pc"                default="false"/>
 
   <arg name="enable_sync"               default="true"/>
-  <arg name="align_depth"               default="true"/>
+  <arg name="align_depth"               default="false"/>
 
   <arg name="publish_tf"                default="true"/>
   <arg name="tf_publish_rate"           default="0"/>
@@ -60,7 +61,7 @@
   <arg name="linear_accel_cov"          default="0.01"/>
   <arg name="initial_reset"             default="false"/>
   <arg name="reconnect_timeout"         default="6.0"/>
-  <arg name="wait_for_device_timeout"   default="-1.0"/>
+  <arg name="wait_for_device_timeout"   default="5"/>
   <arg name="unite_imu_method"          default=""/>
   <arg name="topic_odom_in"             default="odom_in"/>
   <arg name="calib_odom_file"           default=""/>
@@ -148,4 +149,3 @@
     </include>
   </group>
 </launch>
-

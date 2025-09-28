@@ -1,6 +1,11 @@
 <launch>
-	<node name="vins_fusion" pkg="vins"  type="vins_node" output="screen" args="$(find vins)/../config/fast_drone_250.yaml"/>
+	<!-- 修改mavros发布IMU的频率 -->
+	<!-- <node name="mavcmd1" pkg="mavros"  type="mavcmd" args="long 511 105 2500 0 0 0 0 0"/> -->
 
+	<!-- 启动VINS并且将里程计转发到PX4里程计话题 -->
+	<node name="vins_fusion" pkg="vins"  type="vins_node" output="screen" args="$(find vins)/../config/fast_drone_250.yaml">
+		<remap from="~px4_odometry" to="/mavros/vision_pose/pose"/>
+	</node>
 	<!-- <node name="loop_fusion" pkg="loop_fusion"  type="loop_fusion_node" args="$(find vins)/../config/fast_drone_250.yaml" output="screen"/> -->
 
 </launch> 

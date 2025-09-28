@@ -12,6 +12,7 @@
 using namespace ros;
 using namespace Eigen;
 ros::Publisher pub_odometry, pub_latest_odometry;
+ros::Publisher pub_px4_odometry;
 ros::Publisher pub_path;
 ros::Publisher pub_point_cloud, pub_margin_cloud;
 ros::Publisher pub_key_poses;
@@ -45,6 +46,7 @@ void registerPub(ros::NodeHandle &n)
     pub_keyframe_point = n.advertise<sensor_msgs::PointCloud>("keyframe_point", 1000);
     pub_extrinsic = n.advertise<nav_msgs::Odometry>("extrinsic", 1000);
     pub_image_track = n.advertise<sensor_msgs::Image>("image_track", 1000);
+    pub_px4_odometry = n.advertise<geometry_msgs::PoseStamped>("px4_odometry",1000);
 
     cameraposevisual.setScale(0.1);
     cameraposevisual.setLineWidth(0.01);
@@ -66,6 +68,14 @@ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, co
     odometry.twist.twist.linear.y = V.y();
     odometry.twist.twist.linear.z = V.z();
     pub_latest_odometry.publish(odometry);
+
+    geometry_msgs::PoseStamped px4_odomerty;
+    px4_odomerty.header.stamp = ros::Time(t);
+    px4_odomerty.header.frame_id = "base_link";
+    px4_odomerty.pose.position = odometry.pose.pose.position;
+    px4_odomerty.pose.orientation = odometry.pose.pose.orientation;
+    pub_px4_odometry.publish(px4_odomerty);
+
 }
 
 void pubTrackImage(const cv::Mat &imgTrack, const double t)
